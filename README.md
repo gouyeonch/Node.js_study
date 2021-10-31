@@ -1,2 +1,2 @@
-continued from JS_study
+continued from JS_study   
 일단 만들어 놓음
