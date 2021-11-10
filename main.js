@@ -1,6 +1,7 @@
 let http = require('http');
 let fs = require('fs');
 let url = require('url');
+let qs = require('querystring')
 
 function templeteHTML(title, list, body){
   return `
@@ -13,6 +14,7 @@ function templeteHTML(title, list, body){
   <body>
     <h1><a href="/">WEB</a></h1>
     ${list}
+    <a href="/create">create</a>
     <h2>${title}</h2>
     <p>${body}</p>
   </body>
@@ -59,7 +61,40 @@ let app = http.createServer(function(request, response) {
         });
       });
     }
-
+  }
+  else if(pathname === '/create'){
+    fs.readdir('./data',function(error, filelist){
+      let title = 'Web - create';
+      let list = templeteList(filelist);
+      let templete = templeteHTML(title, list, `
+        <form action="http://localhost:3000/create_process" method="post">
+          <p><input type="text" name="title" placeholder="title"></p>
+          <p>
+            <textarea name="description" placeholder="description"></textarea>
+          </p>
+          <p>
+            <input type="submit">
+          </p>
+        </form>
+        `);
+      response.writeHead(200);
+      response.end(templete);
+    });
+  }
+  else if(pathname === '/create_process'){
+    let body = '';
+    request.on('data', function(data){
+      body+=data;
+    });
+    request.on('end', function() {
+      let post = qs.parse(body);
+      let title = post.title;
+      let description = post.description;
+      console.log(title);
+      console.log(description);
+    });
+    response.writeHead(200);
+    response.end('success');
   }
   else{
     response.writeHead(404);
