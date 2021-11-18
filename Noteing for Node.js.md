@@ -223,3 +223,51 @@ parse(divide a sentence)를 통해 요소들 추출 가능
 fs.writeFile을 이용해서 파일 생성 하는 것까진 쉽게 따라감
 
 근데 리다이렉션은 아무리 해도 안된다 윤태한테 물어봐야 될듯
+
+=>해결
+
+***
+
+### 211118(34 ~ )
+
+지금까진 CRUD 중 
+
+Read (fs.readdir, fa.readFile)과
+
+Create (fs.writeFile)을 배웠다
+
+이번엔 Update에 대해서 배운다
+
+.
+
+보통
+
+http://www.google.com, C:\users\document\untitled.jpg
+
+이런걸 **절대경로**,
+
+.
+
+현재 위치를 기준으로 
+
+/data, ../index.html
+
+이런걸 **상대경로**라고 한다
+
+.
+
+절대경로가 명확하지만 경우에 따라서
+
+상대경로가 코드의 유연성을 더해줄 수 있을 듯 하다
+
+.
+
+수정 버튼을 templeteHTML에서 control로 선택적으로 노출시키고.
+
+수정된 내용을 기존 내용으로의 연결을 통해 수정하기 때문에
+
+form을 전송할때 기존의 내용도 hidden으로 숨겨서 같이 전송했다
+
+update_process에서는 전송된 정보들을 토대로
+
+fs.rename과 fs.writeFile로 변경 및 덮어씌기를 했다
